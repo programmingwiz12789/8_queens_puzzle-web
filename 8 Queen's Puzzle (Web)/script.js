@@ -5,8 +5,8 @@ let Q = [], C = [], D1 = [], D2 = [];
 function Load() {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
-            document.getElementById(i + "" + j).disabled = true;
             document.getElementById(i + "" + j).innerHTML = "";
+            document.getElementById(i + "" + j).disabled = true;
         }
     }
     for (let i = 0; i < 2 * n - 1; i++) {
@@ -45,6 +45,7 @@ function Restart() {
     for (let i = 0; i < n; i++) {
         for (let j = 0; j < n; j++) {
             document.getElementById(i + "" + j).innerHTML = "";
+            document.getElementById(i + "" + j).disabled = true;
         }
     }
     for (let i = 0; i < 2 * n - 1; i++) {
@@ -105,7 +106,6 @@ function Solve() {
             else {
                 document.getElementById(i + "" + j).innerHTML = "";
             }
-            document.getElementById(i + "" + j).disabled = true;
         }
     }
     document.getElementById("restartBtn").disabled = false;
@@ -125,7 +125,6 @@ function GameOver() {
 function PlaceQueen(row, col) {
     if (Q[row] === -1 && C[col] && D1[(n - 1) + row - col] && D2[row + col]) {
         document.getElementById(row + "" + col).innerHTML = '<img src="Queen.gif" width="100%" height="80%">';
-        document.getElementById(row + "" + col).disabled = true;
         qCnt++;
         Q[row] = col;
         C[col] = false;
@@ -139,6 +138,14 @@ function PlaceQueen(row, col) {
             GameOver();
             alert("Game Over!");
         }
+    }
+    else if (Q[row] === col) {
+        document.getElementById(row + "" + col).innerHTML = "";
+        qCnt--;
+        Q[row] = -1;
+        C[col] = true;
+        D1[(n - 1) + row - col] = true;
+        D2[row + col] = true;
     }
 }
 
